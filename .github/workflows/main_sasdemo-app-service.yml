@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy WAR app to Azure Web App - sasdemo-app-service
+name: Build and deploy JAR app to Azure Web App - sasdemo-app-service
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.war'
+          path: '${{ github.workspace }}/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'sasdemo-app-service'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FEB1FD522C324E4F9E2A26D9F9DD2528 }}
-          package: '*.war'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_63C5B4F3ECD94345A3F8D139194EA5F3 }}
+          package: '*.jar'
